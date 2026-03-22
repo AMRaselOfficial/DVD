@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DVD Bounce</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+    }
+    #dvd {
+      position: absolute;
+      width: 120px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<img id="dvd" src="https://upload.wikimedia.org/wikipedia/commons/9/9b/DVD_logo.svg">
+
+<script>
+  const dvd = document.getElementById("dvd");
+
+  let x = 100;
+  let y = 100;
+
+  let dx = 2; // speed X
+  let dy = 2; // speed Y
+
+  function randomColor() {
+    return `hsl(${Math.random() * 360}, 100%, 50%)`;
+  }
+
+  function animate() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    const rect = dvd.getBoundingClientRect();
+
+    x += dx;
+    y += dy;
+
+    // Bounce on X
+    if (x + rect.width >= width || x <= 0) {
+      dx = -dx;
+      dvd.style.backgroundColor = randomColor();
+    }
+
+    // Bounce on Y
+    if (y + rect.height >= height || y <= 0) {
+      dy = -dy;
+      dvd.style.backgroundColor = randomColor();
+    }
+
+    dvd.style.left = x + "px";
+    dvd.style.top = y + "px";
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+</script>
+</body>
+</html>
